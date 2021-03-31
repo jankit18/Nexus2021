@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,23 +9,24 @@
 </head>
 
 <body>
-   
+
     <div class="header">
         <div id="Test-name">
             <p>NEXUS</p>
         </div>
         
-
+       
+       
         <div id="submit">
             <a id="lnk" href="{% url 'scoreboard' %}">Scoreboard</a>
         </div>
 
     </div>
     <div class="mid">
-
+       
         <div class="sidebar" id="sidebar_id">
-            <button class="open-button" data-modal-target="#modal1" id="instruct" >RULES</button>
-            
+
+
         </div>
         <div class="container">
 
@@ -33,6 +35,7 @@
                     <p id="qnum">1</p>
                     <p id="score">Score: {{score}}</p>
                     <button class="open-button" data-modal-target="#modal" id="hint">HINT</button>
+                        <button class="open-button" data-modal-target="#modal1" id="rule" >RULES</button>
                 </div>
 
                 <p id="textq">
@@ -40,7 +43,7 @@
 
             </div>
             <div id="subin">
-               
+
                 <input type='text' placeholder='Type your answer' id="ans" class="inp"></input>
                 <button id="answer">SUBMIT</button>
             </div>
@@ -63,12 +66,13 @@
             <div id="tab-name">
                 <div id="tab1" data-tab-target="#signup" class="active ">HINT</div>
             </div>
-            <div id="signup" data-tab-content class="active">
+            <div id="signup1" data-tab-content class="active">
 
-                <p class="title1" id="hintText"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit minus voluptatem magnam qui! Amet aspernatur consectetur odit, iste rem labore, alias, eveniet eius dolores rerum distinctio vel commodi earum ipsam.</p>
             </div>
         </div>
     </div>
+
+
     <div class="modal" id="modal1">
         <div class="modal-header">
             <div class="title">Created by Team Aavishkar ; )</div>
@@ -81,17 +85,58 @@
                 <div id="tab1" data-tab-target="#signup" class="active ">INSTRUCTION</div>
             </div>
             <div id="signup" data-tab-content class="active">
-                
+
                 <p class="title1"> Instructions:</p>
-                <p class="title1"> 1.	There are 10 levels each having 3 hints</p>
-                <p class="title1">  2.	Solving a level without hint gives 100 points</p>
-                <p class="title1">  3.	Solving a level opening hint 1 gives 80 pt</p>
-                <p class="title1">  4.	Solving the level opening hint 2 and 1 gives 60 pt</p>
-   
+                <p class="title1"> 1. There are 10 levels each having 3 hints</p>
+                <p class="title1"> 2. Solving a level without hint gives 100 points</p>
+                <p class="title1"> 3. Solving a level opening hint 1 gives 80 pt</p>
+                <p class="title1"> 4. Solving the level opening hint 2 and 1 gives 60 pt</p>
+
             </div>
         </div>
     </div>
     <div id="overlay">
+        <script>
+            function checkHint(q_no, num) {
+
+                let data = ""
+                let csrftoken = getCookie('csrftoken');
+
+                let url1 = "http://127.0.0.1:8000/api/HintInfo/" + q_no + "/" + num;
+                console.log(url1)
+                fetch(url1, {
+                    method: "POST",
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json',
+                        "X-CSRFToken": csrftoken
+                    },
+                })
+                    .then((resp) => resp.json())
+                    .then(function (data) {
+                        x = "hint" + num
+                        let v1 = document.getElementById(x)
+                        v1.innerText = x + " UNLOCKED"
+                        let v = document.getElementById('signup1')
+                        v.innerHTML += `<p class="title1">Hint${num}: ${data}</p>`
+                    })
+            }
+            function getCookie(name) {
+                var cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    var cookies = document.cookie.split(';');
+                    for (var i = 0; i < cookies.length; i++) {
+                        var cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        </script
 </body>
 
 </html>
@@ -111,7 +156,8 @@
         height: 7vh;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content:space-between;
+    
         background-color: black;
         /*
         border-bottom-style: solid;
@@ -256,14 +302,19 @@
     }
     
     .sidebar {
-        width: 5%;
+        width: 10%;
         position: relative;
         margin-top: 100px;
         padding: 1px;
         display: block;
         background-color: inherit;
     }
-    
+    .sidebar1 {
+        
+        position:absolute;
+        top:0px;
+    }
+   
     .container {
         width: 50%;
         min-height: 50%;
@@ -368,6 +419,9 @@
     
     #hint {
         width: 20%;
+    }
+    #rule{
+        width:20%;
     }
     
     #qnum {
@@ -900,6 +954,18 @@
         modals1.forEach(modal => {
             closeModal(modal)
         })
+        const modals2 = document.querySelectorAll('.modal2.active')
+        modals2.forEach(modal => {
+            closeModal(modal)
+        })
+        const modals3 = document.querySelectorAll('.modal2.active')
+        modals3.forEach(modal => {
+            closeModal(modal)
+        })
+        const modals4 = document.querySelectorAll('.modal2.active')
+        modals4.forEach(modal => {
+            closeModal(modal)
+        })
     })
 
     closeModalButtons.forEach(button => {
@@ -908,6 +974,12 @@
             closeModal(modal)
             const modal1 = button.closest('.modal1')
             closeModal(modal1)
+            const modal2 = button.closest('.modal1')
+            closeModal(modal2)
+            const modal3 = button.closest('.modal1')
+            closeModal(modal3)
+            const modal4 = button.closest('.modal1')
+            closeModal(modal4)
         })
     })
 
@@ -941,9 +1013,9 @@
     })
 
 
-    
 
-    let Eventquestions = {{questions}}
+
+    let Eventquestions = {{ questions }}
     console.log(Eventquestions)
     start(Eventquestions)
 
@@ -953,7 +1025,7 @@
 
         let l = questions.length;
         console.log("Start")
-            //console.log(l)
+        //console.log(l)
 
         let q_no = document.getElementById('qnum')
         let options_class = document.getElementsByClassName('option')
@@ -967,7 +1039,31 @@
         currIndex = 0;
 
 
+        function checkHint() {
 
+            let data = ""
+            let csrftoken = getCookie('csrftoken');
+
+            let url1 = "http://127.0.0.1:8000/HintInfo/" + q_no.innerText.toString() + num
+            console.log(url1)
+            fetch(url1, {
+                method: "POST",
+                body: data,
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                    "X-CSRFToken": csrftoken
+                },
+            })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    x = "hint" + num
+                    let v1 = document.getElementById(x)
+                    v1.innerText = x + " UNLOCKED"
+                    let v = document.getElementById('signup1')
+                    v.innerHTML += `<p>Hint${num}: data</p>`
+                })
+        }
 
         // Creating side bar buttons dynamically
         for (var ij = 1; ij <= l; ij++) {
@@ -975,7 +1071,7 @@
             var button_id = ij.toString();
             var button = document.createElement('button');
             button.type = 'button';
-            button.innerHTML = ij-1;
+            button.innerHTML = ij - 1;
             button.className = 'question_no_sidebar';
             button.id = button_id;
 
@@ -991,13 +1087,15 @@
         let side_parent = document.querySelector('#sidebar_id')
         side_parent.addEventListener("click", side_color_change, false)
 
+
+
         function side_color_change(e) {
             if (e.target != e.currentTarget) {
                 console.log(e.target.id);
                 side_color_reset()
                 currIndex = e.target.id - '0';
                 currIndex--;
-                
+
                 showQuestion(questions[currIndex]);
             }
         }
@@ -1013,75 +1111,108 @@
 
 
         function showQuestion(quest) {
+            let v = document.getElementById('signup1')
+            v.innerHTML = ""
+            x = quest.qNo.toString()
+            if (quest.hintUnlock == 0)
+                v.innerHTML = `<p class="title1">Hint will unlock after 30 minute from the time you clicked on this question</p>`
+            else {
+                if (quest.hint1.length == 0) {
+                    let v = document.getElementById('signup1')
+                    v.innerHTML += `<button onclick="checkHint(${x},'1')" id="hint1">Unlock HINT1</button>`
+
+                }
+                else {
+                    let v = document.getElementById('signup1')
+                    v.innerHTML += `<p class="title1">Hint1: ${quest.hint1}</p>`
+                }
+
+                if (quest.hint2.length == 0) {
+                    let v = document.getElementById('signup1')
+                    v.innerHTML += `<button onclick="checkHint(${x},'2')" id="hint2">Unlock HINT2</button>`
+
+                }
+                else {
+                    let v = document.getElementById('signup1')
+                    v.innerHTML += `<p class="title1">Hint2: ${quest.hint2}</p>`
+                }
+
+                if (quest.hint3.length == 0) {
+                    let v = document.getElementById('signup1')
+                    v.innerHTML += `<button onclick="checkHint(${x},'3')" id="hint3">Unlock HINT3</button>`
+
+                }
+                else {
+                    let v = document.getElementById('signup1')
+                    v.innerHTML += `<p class="title1">Hint3: ${quest.hint3}</p>`
+                }
+            }
             console.log(quest)
             q.innerText = quest.qData
             q_no.innerText = quest.qNo;
-          
-            if (quest.hintData.length==0)
-                hnt.innerText = "Hint will unlock after 30 minute from the time you clicked on this question"
-            else    
-                hnt.innerText = quest.hintData
         }
 
-   
+
+
+
         submit.addEventListener('click', function run() {
             let val = document.getElementById('ans').value
-            let data = JSON.stringify({'answer':val});
+            let data = JSON.stringify({ 'answer': val });
             let csrftoken = getCookie('csrftoken');
-            
-            let url1 = "http://127.0.0.1:8000/api/"+q_no.innerText.toString()
+
+            let url1 = "http://127.0.0.1:8000/api/" + q_no.innerText.toString()
             console.log(url1)
             fetch(url1, {
                 method: "POST",
                 body: data,
-                headers: { 'Accept': 'application/json, text/plain, */*',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
                     'Content-Type': 'application/json',
-                    "X-CSRFToken": csrftoken },
+                    "X-CSRFToken": csrftoken
+                },
             })
-            .then((resp) => resp.json())
-        .   then(function(data){
-                console.log(data)
-                let v = document.getElementById('ans')
-                if(data=="Failure")
-                {
-                    v.value = "FAILURE"
-                    v.style.background = 'red';
-                }
-                else if(data ==='Success'){
-                     v.value = "SUCCESS! Please Refresh"
-                    v.style.background = 'green';
-                }
-                else if(data == 'Already')
-                {
-                    v.value = "ALREADY ATTEMPTED"
-                    v.style.background = 'green';   
-                }
-                else if(data=="Over"){
-                    v.value = "EVENT OVER"
-                    v.style.background = 'blue';   
-                }
-                else{
-                    v.value = "NEXUS CAPTURED!!"
-                    v.style.background = 'blue';  
-                }
-               
-             })
+                .then((resp) => resp.json())
+                .then(function (data) {
+                    console.log(data)
+                    let v = document.getElementById('ans')
+                    if (data == "Failure") {
+                        v.value = "FAILURE"
+                        v.style.background = 'red';
+                    }
+                    else if (data === 'Success') {
+                        v.value = "SUCCESS! Please Refresh"
+                        v.style.background = 'green';
+                    }
+                    else if (data == 'Already') {
+                        v.value = "ALREADY ATTEMPTED"
+                        v.style.background = 'green';
+                    }
+                    else if (data == "Over") {
+                        v.value = "EVENT OVER"
+                        v.style.background = 'blue';
+                    }
+                    else {
+                        v.value = "NEXUS CAPTURED!!"
+                        v.style.background = 'blue';
+                    }
+
+                })
         })
 
-    function getCookie(name) {
-          var cookieValue = null;
-          if (document.cookie && document.cookie !== '') {
-              var cookies = document.cookie.split(';');
-              for (var i = 0; i < cookies.length; i++) {
-                  var cookie = cookies[i].trim();
-                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                      break;
-                  }
-              }
-          }
-          return cookieValue;
-      }
-           
-}
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+    }
 </script>

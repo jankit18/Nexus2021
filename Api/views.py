@@ -34,7 +34,7 @@ def checkAnswer(request, question_no):
             if hint_obj.attempt ==True:
                 return Response("Already")  
 
-            questionScore = 50
+            
             user_obj = UserInfo.objects.get(user_id = request.user)
             if user_obj.level < 10:
                user_obj.level = user_obj.level+1
@@ -44,15 +44,20 @@ def checkAnswer(request, question_no):
                 x = hint_obj.dtime - time.time()
                 if x>1800:
                     hint_obj.hint = True;
-            
+            user_obj.score+= q_obj.maxScore
             if hint_obj.hint == True:
-                questionScore-=20
+                user_obj.score-= hint_obj.qPenalty
 
-            user_obj.score+=questionScore
+            
+            
             hint_obj.attempt=True
             user_obj.save()
             hint_obj.save()
-            if question_no < 10:
+            x = EventQuestions.objects.all()
+            x = len(x)-1
+            print("yesssssss")
+            print(x)
+            if question_no < x:
                 q_obj1= EventQuestions.objects.get(question_no=question_no+1)
                 HintDetail.objects.create(user_id = request.user, question_no = q_obj1, hint=False, attempt= False,dtime = time.time())
                 currentQuestion(request)
@@ -74,3 +79,42 @@ def LeaderboardInfo(request):
     print(serializer.data)
     
     return Response(serializer.data)
+
+@login_required
+@api_view(['POST'])
+def HintInfo(request,  question_no, hint_no):
+
+    user_id = request.user.id
+    q_obj= EventQuestions.objects.get(question_no=question_no)
+    user_obj = UserInfo.objects.get(user_id = request.user)
+    hint_obj = HintDetail.objects.filter(user_id=request.user,question_no = q_obj)
+    print(hint_obj)
+    hint_obj=hint_obj[0]
+
+    if hint_obj.hint == False :
+        x = hint_obj.dtime - time.time()
+        if x>1800:
+            hint_obj.hint = True;
+    hint ="" 
+    if hint_obj.hint == True:
+        print("reach")
+        if hint_no == 1:
+            hint_obj.qPenalty-=10
+            hint+= q_obj.hintInfo1
+            hint_obj.hint1 = True
+        elif  hint_no == 2:
+            hint_obj.qPenalty-=20
+            hint+= q_obj.hintInfo2
+            hint_obj.hint2 = True
+        elif  hint_no == 3:
+            hint_obj.qPenalty-=30 
+            hint+= q_obj.hintInfo3
+            hint_obj.hint3 = True
+    else:
+        return Response("")
+    hint_obj.save()
+    return Response(hint)
+
+
+
+       
