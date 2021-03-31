@@ -3,8 +3,6 @@ from rest_framework.response import Response
 from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.models import User
-import google.oauth2.credentials
-import google_auth_oauthlib.flow
 from .models import UserInfo, EventQuestions, HintDetail
 from django.contrib.auth.decorators import login_required
 import time
