@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+   
+    <div class="header">
+        <div id="Test-name">
+            <p>NEXUS</p>
+        </div>
+        
+
+        <div id="submit">
+            <a id="lnk" href="{% url 'scoreboard' %}">Scoreboard</a>
+        </div>
+
+    </div>
+    <div class="mid">
+
+        <div class="sidebar" id="sidebar_id">
+            <button class="open-button" data-modal-target="#modal1" id="instruct" >RULES</button>
+            
+        </div>
+        <div class="container">
+
+            <div id="question">
+                <div id="inner">
+                    <p id="qnum">1</p>
+                    <p id="score">Score: {{score}}</p>
+                    <button class="open-button" data-modal-target="#modal" id="hint">HINT</button>
+                </div>
+
+                <p id="textq">
+                </p>
+
+            </div>
+            <div id="subin">
+               
+                <input type='text' placeholder='Type your answer' id="ans" class="inp"></input>
+                <button id="answer">SUBMIT</button>
+            </div>
+
+            <!-- <div class="np" id="submit">
+                    <p>SUBMIT</p>
+                </div> -->
+
+        </div>
+    </div>
+    </div>
+    <div class="modal" id="modal">
+        <div class="modal-header">
+            <div class="title">Created by Team Aavishkar ; )</div>
+
+            <button data-close-button class="close-button">&times</button>
+        </div>
+
+        <div class="tab-content">
+            <div id="tab-name">
+                <div id="tab1" data-tab-target="#signup" class="active ">HINT</div>
+            </div>
+            <div id="signup" data-tab-content class="active">
+
+                <p class="title1" id="hintText"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit minus voluptatem magnam qui! Amet aspernatur consectetur odit, iste rem labore, alias, eveniet eius dolores rerum distinctio vel commodi earum ipsam.</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modal1">
+        <div class="modal-header">
+            <div class="title">Created by Team Aavishkar ; )</div>
+
+            <button data-close-button class="close-button">&times</button>
+        </div>
+
+        <div class="tab-content">
+            <div id="tab-name">
+                <div id="tab1" data-tab-target="#signup" class="active ">INSTRUCTION</div>
+            </div>
+            <div id="signup" data-tab-content class="active">
+
+                <p class="title1"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nemo ad laborum corporis repellendus, quisquam possimus laboriosam, voluptate architecto ex obcaecati neque, molestiae aut? Facilis id ipsum illum culpa, architecto ipsa? Lorem
+                    ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit minus voluptatem magnam qui! Amet aspernatur consectetur odit, iste rem labore, alias, eveniet eius dolores rerum distinctio vel commodi earum ipsam.</p>
+            </div>
+        </div>
+    </div>
+    <div id="overlay">
+</body>
+
+</html>
+
+<style>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        font-family: Gotham Rounded;
+        padding: 0;
+        margin: 0;
+    }
+    
+    .header {
+        width: 100%;
+        height: 7vh;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: black;
+        /*
+        border-bottom-style: solid;
+        border-width: 1px;border-color: #7b00ce;
+        box-shadow: 0px 0px 5px 1px #969696;*/
+        color: rgb(212, 230, 212);
+        position: absolute;
+        z-index: 1;
+    }
+    
+    #Test-name {
+        margin-left: 100px;
+        padding: 5px;
+        font-size: 25px;
+        font-weight: bold;
+        background-color: inherit;
+        
+    }
+    
+    #attempt {
+        display: flex;
+        color: rgb(6, 44, 28);
+        font-size: large;
+        font-weight: bold;
+    }
+    
+    #Timer {
+        margin-right: 100px;
+        padding: 5px;
+        font-size: 25px;
+        font-weight: bold;
+        border-radius: 5px;
+        background-color: white;
+        color: black;
+        box-shadow: 0px 0px 5px 1px #969696;
+    }
+    
+    #reset {
+        
+        text-align: center;
+        position: relative;
+        font-weight: bold;
+        font-size: medium;
+        width: 100px;
+        height: 35px;
+        cursor: pointer;
+        padding: 7px;
+        margin-right: 20px;
+        border: 2px solid rgb(255, 255, 255);
+        border-radius: 10px;
+        display: none;
+    }
+    
+    #reset:hover {
+        border: 2px solid rgb(0, 0, 0);
+        background-color: rgb(255, 255, 255);
+        color: rgb(64, 3, 231);
+    }
+    
+    #submit {
+        
+        text-align: center;
+        position: relative;
+        font-weight: bold;
+        font-size: medium;
+        width: 100px;
+        height: 35px;
+        cursor: pointer;
+        padding: 7px;
+        margin-right: 5px;
+        background-color: white color: rgb(6, 44, 28);
+        border: 2px solid rgb(255, 255, 255);
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    #lnk{
+        text-decoration: none;
+        color: #D4E6D4;
+        cursor: pointer;
+    }
+    #instruct {
+        height: 50px;
+        margin: 10px 0px 10px 15px;
+        padding: 5px 5px 5px 5px;
+        border: 1px solid rgb(116, 129, 148);
+        border-radius: 10px;
+        font-weight: bold;
+        font-size: small;
+        cursor: pointer;
+        background-color: white;
+    }
+    
+    #answer {
+        all: unset;
+        text-align: center;
+        position: relative;
+        font-weight: bold;
+        font-size: medium;
+        width: 50%;
+        height: 20%;
+        cursor: pointer;
+        padding: 7px;
+        margin-right: 5px;
+        background-color: #969696;
+        color: rgb(6, 44, 28);
+        border-radius: 10px;
+        margin: 5px;
+    }
+    
+    #answer:hover {
+        border: 2px solid rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
+        background-color: rgb(6, 44, 28);
+    }
+    
+    @media screen and (min-width: 700px) {
+        #answer {
+            width: 20%;
+        }
+        
+    }
+    
+    #submit:hover {
+        border: 2px solid rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
+        background-color: rgb(6, 44, 28);
+        
+    }
+    
+    .mid {
+        position: absolute;
+        top: 6vh;
+        height: 94vh;
+        width: 100%;
+        display: flex;
+        /* background-color: rgb(14, 27, 209); */
+        /*background-image: linear-gradient(to bottom , rgb(229, 238, 237), rgb(124, 129, 128));*/
+        /* background-image: linear-gradient(to bottom right, rgb(17, 240, 103), rgb(255, 255, 255)); */
+        background-image: url("{% static 'images/896828.jpg' %}");
+        background-size: 100% 100%;
+        justify-content: center;
+    }
+    
+    .sidebar {
+        width: 5%;
+        position: relative;
+        margin-top: 100px;
+        padding: 1px;
+        display: block;
+        background-color: inherit;
+    }
+    
+    .container {
+        width: 50%;
+        min-height: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    @media screen and (min-width: 700px) {
+        .container {
+            left: 20%;
+        }
+    }
+    /* #index {
+        width: 3vw;
+        margin: 5px;
+        padding: 5px 5px 5px 5px;
+        border: 2px solid rgb(36, 33, 235);
+        font-weight: bold;
+        font-size: small;
+        cursor: pointer;
+        background-color: white;
+    }
+
+    #index:hover {
+        background-color: rgba(78, 204, 236, 0.356);
+        border: 2px solid rgb(0, 0, 0);
+    } */
+    
+    .question_no_sidebar {
+        width: 3vw;
+        margin: 10px 0px 10px 13px;
+        padding: 5px 5px 5px 5px;
+        border: 1px solid rgb(116, 129, 148);
+        border-radius: 5px;
+        font-weight: bold;
+        font-size: small;
+        cursor: pointer;
+        background-color: white;
+    }
+    
+    .question_no_sidebar:hover {
+        background-color: rgba(112, 137, 143, 0.356);
+        border: 1px solid rgb(0, 0, 0);
+    }
+    
+    @media screen and (max-width: 700px) {
+        .container {
+            width: 80%;
+        }
+        .mid {
+            justify-content: space-between;
+        }
+        .question_no_sidebar {
+            width: 90%;
+            margin: 1px;
+            border: 1px solid rgb(116, 129, 148);
+            font-weight: bold;
+            font-size: small;
+            cursor: pointer;
+            background-color: white;
+        }
+        .container {
+            width: 100%;
+        }
+        .sidebar {
+            width: 10%;
+        }
+        #instruct{
+            font-size: smaller;
+             margin: 10px 0px 10px 0px;
+        }
+
+    }
+    
+    #question {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 100px;
+        margin-bottom: 20px;
+        padding: 5%;
+        font-size: large;
+        font-weight: bold;
+        width: 80%;
+        height: 400px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        background-color: #f3f3f3;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0px 0px 5px 2px #969696;
+    }
+    
+    @media screen and (max-width: 700px) {
+        #question {
+            margin-top: 50px;
+        }
+        .sidebar {
+            margin-top: 50px;
+        }
+    }
+    
+    #hint {
+        width: 20%;
+    }
+    
+    #qnum {
+        border: 2px solid rgb(255, 255, 255);
+        border-radius: 10px;
+        padding: 1px;
+    }
+    
+    #textq {
+        border: 2px solid rgb(223, 116, 116);
+        border-radius: 10px;
+        padding: 15px;
+        overflow-y: scroll;
+        min-height: 90%
+    }
+    
+    #inner {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 3%;
+    }
+    
+    #qno {
+        margin-right: 10px;
+    }
+    
+    .inp {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+    
+    #keys {
+        width: 50%;
+        height: 600px;
+        margin-top: 50px;
+        border: 0px solid gray;
+        display: flex;
+        flex-direction: column;
+        border-radius: 5px;
+        background-color: white;
+        box-shadow: 0px 0px 15px 2px #969696;
+    }
+    
+    .option {
+        width: 80%;
+        background-color: #f1e7ff;
+        color: black;
+        margin: 5px 5px 5px 10%;
+        padding: 15px;
+        display: flex;
+        font-size: large;
+        font-weight: bold;
+        border-radius: 5px;
+        box-shadow: 0px 0px 2px 1px #969696;
+        cursor: pointer;
+    }
+    
+    .option:hover {
+        background-color: rgb(36, 33, 235);
+        color: white;
+        margin-left: 13%;
+    }
+    
+    #no {
+        padding: 1px 0px 1px 15px;
+        margin-right: 25px;
+        border-radius: 1px;
+        color: blanchedalmond;
+        background-color: rgb(20, 10, 29);
+        padding-right: 15px;
+    }
+    
+    #nxt-prev {
+        width: 80%;
+        height: 90px;
+        margin: 20px;
+        display: flex;
+        justify-content: space-between;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0px 0px 15px 2px #969696;
+    }
+    
+    .np {
+        width: 100px;
+        height: 45px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 2px solid rgb(82, 50, 121);
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    
+    #subin {
+        width: 80%;
+        height: 100px;
+        margin: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0px 0px 5px 2px #969696;
+    }
+    
+    .inp {
+        width: 80%;
+        display: flex;
+        font-size: larger;
+        align-items: center;
+        padding: 0.5rem;
+    }
+    
+    .np:hover {
+        background-color: rgb(82, 50, 121);
+        color: white;
+    }
+    
+    #prev:hover {
+        margin-bottom: 1.76em;
+    }
+    
+    #next:hover {
+        margin-bottom: 1.76em;
+    }
+    
+    #save:hover {
+        margin-bottom: 1.76em;
+    }
+    
+    #clear:hover {
+        margin-bottom: 1.76em;
+    }
+    
+    [data-tab-content] {
+        display: none;
+    }
+    
+    [data-tab-content] {
+        display: none;
+    }
+    
+    .active[data-tab-content] {
+        width: 450px;
+        max-width: 100%;
+        border: 8px;
+        border-left: #1A73E8;
+        border-right: #1A73E8;
+        background-color: #FFFFFF;
+        display: grid;
+        justify-items: center;
+        align-items: top;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        box-shadow: 0px 0px 1px 0px black;
+        z-index: 1;
+    }
+    
+    .close-button {
+        color: #F1E7FF;
+    }
+    
+    .modal {
+        padding: 4px;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: 200ms ease-in-out;
+        align-items: center;
+        border-radius: 10px;
+        z-index: 10;
+        background-color: #3c501d;
+        color: #F1E7FF;
+        width: 450px;
+        max-width: 80%;
+    }
+    
+    .modal.active {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    
+    .modal-header {
+        padding: 10px 15px;
+        display: flex;
+        justify-content: left;
+        align-items: right;
+    }
+    
+    .modal-header .title {
+        font-style: italic;
+        font-weight: lighter;
+    }
+    
+    .modal-header .close-button {
+        cursor: pointer;
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+    
+    #overlay {
+        position: fixed;
+        opacity: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    #overlay.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+    
+    #tab-name {
+        display: flex;
+        justify-content: center;
+    }
+    
+    #tab1 {
+        width: 100%;
+        margin: 0;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        text-align: center;
+        font-weight: bold;
+        background-color: #3a3a3a;
+        color: #F1E7FF;
+        list-style-type: none;
+        cursor: pointer;
+        padding: 10px 10px 10px 10px;
+    }
+    
+    #tab1.active {
+        color: black;
+        background-color: #F1E7FF;
+        font-family: 'Poppins', sans-serif;
+        font-size: larger;
+    }
+    
+    #tab2 {
+        float: right;
+        width: 221px;
+        max-width: 100%;
+        margin: 0;
+        border-top-right-radius: 10px;
+        justify-content: space-around;
+        text-align: center;
+        font-weight: bold;
+        background-color: #3a3a3a;
+        color: white;
+        list-style-type: none;
+        cursor: pointer;
+        padding: 10px;
+    }
+    
+    #tab2.active {
+        color: black;
+        background-color: white;
+    }
+    
+    #main-holder {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        background-color: #1A73E8;
+        background-color: rgba(36, 7, 104, 0.2);
+    }
+    
+    #main-holder-in {
+        width: 100px;
+        background-color: #1A73E8;
+    }
+    
+    #forget {
+        width: 20%;
+        text-align: left;
+        margin: 0;
+        padding: 5px;
+        font-size: 10px;
+        font-weight: bold;
+        color: #8a0000;
+    }
+    
+    .logo_size {
+        margin-top: 20px;
+        max-width: 120px;
+        max-height: 120px;
+    }
+    
+    .title {
+        width: 100%;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        border: 5px;
+        border-color: black;
+    }
+    
+    .title1 {
+        color: black;
+        width: 100%;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        border: 5px;
+        border-color: black;
+        margin: 20px;
+    }
+    
+    .error-msg {
+        width: 80%;
+        text-align: left;
+        margin: 0;
+        font-size: 10px;
+        font-weight: bold;
+        color: #8a0000;
+        background-color: #FFFFFF;
+    }
+    
+    #icon-1 {
+        width: 30%;
+        height: 20%;
+        margin-left: 20%;
+        margin-right: 20%;
+    }
+    
+    .select-box {
+        width: 84%;
+    }
+    
+    .select-box .options-container {
+        background: #2f3640;
+        color: #f5f6fa;
+        max-height: 0px;
+        width: 82%;
+        opacity: 0;
+        transition: all 0.4s;
+        border-radius: 8px;
+        overflow: hidden;
+        position: absolute;
+        order: 1;
+    }
+    
+    .selected {
+        width: 100%;
+        background: #2f3640;
+        border-radius: 10px;
+        margin-bottom: 1px;
+        font-size: 14px;
+        color: #f5f6fa;
+        position: relative;
+        order: 0;
+    }
+    
+    .selected::after {
+        content: "";
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        height: 100%;
+        width: 32px;
+        right: 10px;
+        top: 5px;
+        transition: all 0.4s;
+    }
+    
+    .select-box .options-container.active {
+        max-height: 120px;
+        max-width: 500px;
+        opacity: 1;
+        overflow-y: scroll;
+    }
+    
+    .select-box .options-container.active+.selected::after {
+        transform: rotateY(180deg);
+    }
+    
+    .select-box .options-container::-webkit-scrollbar {
+        width: 8px;
+        background: #0d141f;
+        border-radius: 0 8px 8px 0;
+    }
+    
+    .select-box .options-container::-webkit-scrollbar-thumb {
+        background: #525861;
+        border-radius: 0px 8px 8px 0;
+    }
+    
+    .select-box .option,
+    .selected {
+        padding: 10px 14px 10px 14px;
+        cursor: pointer;
+    }
+    
+    .select-box .option:hover {
+        background: #414b57;
+    }
+    
+    .select-box label {
+        cursor: pointer;
+        padding-right: 90px;
+    }
+    
+    .select-box .option .radio {
+        display: none;
+    }
+    
+    #Sign-up-form {
+        width: 100%;
+        height: 100%;
+        margin-bottom: 20%;
+        align-self: flex-start;
+        display: grid;
+        justify-items: center;
+        align-items: top;
+    }
+    
+    .Sign-up-form-field::placeholder {
+        color: black;
+    }
+    
+    .Sign-up-form-field {
+        width: 70%;
+        height: 70%;
+        background-color: #E8F0FE;
+        border: 1px;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        outline: none;
+        padding: 5px 5px 5px 15px;
+    }
+    
+    #Sign-up-form-submit {
+        width: 70%;
+        height: 40%;
+        margin-bottom: 50px;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        color: #F1E7FF;
+        font-weight: bold;
+        background-color: #191275;
+        cursor: pointer;
+        outline: none;
+    }
+    
+    .dropdown {
+        float: left;
+        overflow: hidden;
+    }
+    
+    .dropdown .dropbtn {
+        font-size: 14px;
+        border: none;
+        color: black;
+        background-color: inherit;
+        font-family: inherit;
+        padding: 1rem;
+    }
+    
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: bisque;
+        color: black;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+    
+    .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+    
+    .topnav a:hover,
+    .dropdown:hover .dropbtn {
+        background-color: aqua;
+        color: black;
+    }
+    
+    .dropdown-content a:hover {
+        background-color: black;
+        color: bisque;
+    }
+    
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    
+    @media screen and (max-width: 600px) {}
+</style>
+
+<script>
+    const openModalButtons = document.querySelectorAll('[data-modal-target]')
+    const closeModalButtons = document.querySelectorAll('.close-button')
+    const overlay = document.getElementById('overlay')
+
+    openModalButtons.forEach(button => {
+        console.log("entered")
+        button.addEventListener('click', () => {
+            const modal = document.querySelector(button.dataset.modalTarget)
+            console.log(modal)
+            openModal(modal)
+        })
+    })
+
+    overlay.addEventListener('click', () => {
+        const modals = document.querySelectorAll('.modal.active')
+        modals.forEach(modal => {
+            closeModal(modal)
+        })
+        const modals1 = document.querySelectorAll('.modal1.active')
+        modals1.forEach(modal => {
+            closeModal(modal)
+        })
+    })
+
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = button.closest('.modal')
+            closeModal(modal)
+            const modal1 = button.closest('.modal1')
+            closeModal(modal1)
+        })
+    })
+
+    function openModal(modal) {
+        if (modal == null) return
+        modal.classList.add('active')
+        overlay.classList.add('active')
+    }
+
+    function closeModal(modal) {
+        if (modal == null) return
+        modal.classList.remove('active')
+        overlay.classList.remove('active')
+    }
+
+    const tabs = document.querySelectorAll('[data-tab-target]')
+    const tabContents = document.querySelectorAll('[data-tab-content]')
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const target = document.querySelector(tab.dataset.tabTarget)
+            tabContents.forEach(tabContent => {
+                tabContent.classList.remove('active')
+            })
+            tabs.forEach(tab => {
+                tab.classList.remove('active')
+            })
+            tab.classList.add('active')
+            target.classList.add('active')
+        })
+    })
+
+
+    
+
+    let Eventquestions = {{questions}}
+    console.log(Eventquestions)
+    start(Eventquestions)
+
+
+
+    function start(questions) {
+
+        let l = questions.length;
+        console.log("Start")
+            //console.log(l)
+
+        let q_no = document.getElementById('qnum')
+        let options_class = document.getElementsByClassName('option')
+        let q = document.getElementById('textq')
+        let hnt = document.getElementById('hintText')
+        let submit = document.getElementById('answer')
+
+
+
+
+        currIndex = 0;
+
+
+
+
+        // Creating side bar buttons dynamically
+        for (var ij = 1; ij <= l; ij++) {
+
+            var button_id = ij.toString();
+            var button = document.createElement('button');
+            button.type = 'button';
+            button.innerHTML = ij-1;
+            button.className = 'question_no_sidebar';
+            button.id = button_id;
+
+            var sidebar_element = document.getElementById('sidebar_id')
+            sidebar_element.appendChild(button);
+            if (ij == l) {
+                var question_no_sidebar = document.getElementsByClassName('question_no_sidebar');
+                side_color_reset()
+                showQuestion(questions[currIndex]);
+            }
+        }
+
+        let side_parent = document.querySelector('#sidebar_id')
+        side_parent.addEventListener("click", side_color_change, false)
+
+        function side_color_change(e) {
+            if (e.target != e.currentTarget) {
+                console.log(e.target.id);
+                side_color_reset()
+                currIndex = e.target.id - '0';
+                currIndex--;
+                
+                showQuestion(questions[currIndex]);
+            }
+        }
+
+
+        function side_color_reset() {
+            for (let i = 0; i < l; i++) {
+                question_no_sidebar[i].style.color = 'black';
+                question_no_sidebar[i].style.backgroundColor = 'rgb(100 228 89)';
+            }
+
+        }
+
+
+        function showQuestion(quest) {
+            console.log(quest)
+            q.innerText = quest.qData
+            q_no.innerText = quest.qNo;
+          
+            if (quest.hintData.length==0)
+                hnt.innerText = "Hint will unlock after 30 minute from the time you clicked on this question"
+            else    
+                hnt.innerText = quest.hintData
+        }
+
+   
+        submit.addEventListener('click', function run() {
+            let val = document.getElementById('ans').value
+            let data = JSON.stringify({'answer':val});
+            let csrftoken = getCookie('csrftoken');
+            
+            let url1 = "http://127.0.0.1:8000/api/"+q_no.innerText.toString()
+            console.log(url1)
+            fetch(url1, {
+                method: "POST",
+                body: data,
+                headers: { 'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                    "X-CSRFToken": csrftoken },
+            })
+            .then((resp) => resp.json())
+        .   then(function(data){
+                console.log(data)
+                let v = document.getElementById('ans')
+                if(data=="Failure")
+                {
+                    v.value = "FAILURE"
+                    v.style.background = 'red';
+                }
+                else if(data ==='Success'){
+                     v.value = "SUCCESS! Please Refresh"
+                    v.style.background = 'green';
+                }
+                else if(data == 'Already')
+                {
+                    v.value = "ALREADY ATTEMPTED"
+                    v.style.background = 'green';   
+                }
+                else if(data=="Over"){
+                    v.value = "EVENT OVER"
+                    v.style.background = 'blue';   
+                }
+                else{
+                    v.value = "NEXUS CAPTURED!!"
+                    v.style.background = 'blue';  
+                }
+               
+             })
+        })
+
+    function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+              var cookies = document.cookie.split(';');
+              for (var i = 0; i < cookies.length; i++) {
+                  var cookie = cookies[i].trim();
+                  if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                      cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                      break;
+                  }
+              }
+          }
+          return cookieValue;
+      }
+           
+}
+</script>

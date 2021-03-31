@@ -1,0 +1,88 @@
+<!DOCTYPE html> {% load socialaccount %} {% providers_media_js %} {% load static %}
+<html lang="en">
+
+<body>
+    <div id="container">
+        <p id="title">WELCOME TO NEXUS!! Login to continue</p>
+        <button id="but"><a id="lnk"href = "{% provider_login_url "google" %}">GOOGLE</a></button>
+    </div>
+
+</body>
+<script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+<script>
+</script>
+
+</html>
+<style>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        font-family: Gotham Rounded;
+        padding: 0;
+        margin: 0;
+    }
+    
+    #but {
+        text-align: center;
+        position: relative;
+        font-weight: bold;
+        font-size: medium;
+        margin-top: 100px;
+        width: 150px;
+        height: 50px;
+        cursor: pointer;
+        padding: 7px;
+        margin-right: 5px;
+        background-color: rgb(128, 27, 27);
+        border: 2px solid rgb(255, 255, 255);
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    
+    #lnk {
+        text-decoration: none;
+        color: white;
+    }
+    
+    #title {
+        color: rgb(187, 187, 224);
+        font-weight: bolder;
+        font-size: 25px;
+        background-color: rgb(43, 46, 46);
+    }
+    
+    @media screen and (max-width: 700px) {
+        #but {
+            width: 350px;
+            height: 100px;
+        }
+        #lnk {
+            font-size: 50px;
+        }
+        #title {
+            width: 80%;
+            display: flex;
+            font-weight: bolder;
+            font-size: 50px;
+            background-color: azure;
+        }
+    }
+    
+    #but:hover {
+        border: 2px solid rgb(255, 255, 255);
+        color: rgb(255, 255, 255);
+        background-color: rgb(6, 44, 28);
+    }
+    
+    #container {
+        width: 100wh;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-image: url("{% static 'images/back1.jpg' %}");
+        background-size: 100% 100%;
+    }
+</style>
