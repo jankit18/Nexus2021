@@ -72,8 +72,6 @@ def LeaderboardInfo(request):
     detail = UserInfo.objects.all()
     serializer = UserInfoSerializer(detail, many =True)
     
-    print(serializer.data)
-    
     return Response(serializer.data)
 
 @login_required
@@ -84,7 +82,7 @@ def HintInfo(request,  question_no, hint_no):
     q_obj= EventQuestions.objects.get(question_no=question_no)
     user_obj = UserInfo.objects.get(user_id = request.user)
     hint_obj = HintDetail.objects.filter(user_id=request.user,question_no = q_obj)
-    print(hint_obj)
+   
     hint_obj=hint_obj[0]
 
     if hint_obj.hint == False :
@@ -93,7 +91,6 @@ def HintInfo(request,  question_no, hint_no):
             hint_obj.hint = True;
     hint ="" 
     if hint_obj.hint == True:
-        print("reach")
         if hint_no == 1:
             hint_obj.qPenalty-=10
             hint+= q_obj.hintInfo1

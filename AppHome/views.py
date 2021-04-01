@@ -36,7 +36,7 @@ def currentQuestion(request):
        
     questions = []
     for i in range(level+1):
-         = EventQuestions.objects.get(question_no = i)
+        question_obj = EventQuestions.objects.get(question_no = i)
         hint_obj = HintDetail.objects.filter(user_id=request.user,question_no = question_obj)
         
         
