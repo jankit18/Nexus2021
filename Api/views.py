@@ -100,7 +100,7 @@ def HintInfo(request,  question_no, hint_no):
             hint+= q_obj.hintInfo2
             hint_obj.hint2 = True
         elif  hint_no == 3:
-            hint_obj.qPenalty-=30 
+            hint_obj.qPenalty-=50 
             hint+= q_obj.hintInfo3
             hint_obj.hint3 = True
     else:

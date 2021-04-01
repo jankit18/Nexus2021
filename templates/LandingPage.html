@@ -44,7 +44,7 @@
             </div>
             <div id="subin">
 
-                <input type='text' placeholder='Type your answer' id="ans" class="inp"></input>
+                <input type='text'  id="ans" class="inp"></input>
                 <button id="answer">SUBMIT</button>
             </div>
 
@@ -279,7 +279,7 @@
         }
         
     }
-    
+ 
     #submit:hover {
         border: 2px solid rgb(255, 255, 255);
         color: rgb(255, 255, 255);
@@ -1075,6 +1075,12 @@
 
 
         function showQuestion(quest) {
+            let ansFor =  document.getElementById('ans');
+            ansFor.value="";
+            ansFor.value=quest.ansFormat;
+
+
+
             let v = document.getElementById('signup1')
             v.innerHTML = ""
             x = quest.qNo.toString()

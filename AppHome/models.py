@@ -15,13 +15,14 @@ class UserInfo(models.Model):
 
 class EventQuestions(models.Model):
     question_no = models.IntegerField()
-    story =  models.CharField(max_length = 1000)
+    story =  models.CharField(max_length = 2000)
     answer = models.CharField(max_length = 500)
     hintInfo1 = models.CharField(max_length = 2000,default = "")
     hintInfo2 = models.CharField(max_length = 2000,default = "")
     hintInfo3 = models.CharField(max_length = 2000,default = "")
     expireTime = models.IntegerField(default=0)
     maxScore = models.IntegerField(default=0)
+    ansFormat =  models.CharField(max_length = 2000,default = "")
 
     def __str__(self):
         return str(self.question_no)        

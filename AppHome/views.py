@@ -68,6 +68,7 @@ def currentQuestion(request):
                     'hint1': hint1,
                     'hint2': hint2,
                     'hint3': hint3,
+                    'ansFormat': question_obj.ansFormat,
                 }
                 questions.append(question) 
             else:
@@ -78,6 +79,7 @@ def currentQuestion(request):
                     'hint1': hint1,
                     'hint2': hint2,
                     'hint3': hint3,
+                    'ansFormat': question_obj.ansFormat,
                 }
                 questions.append(question) 
         else:
@@ -88,6 +90,7 @@ def currentQuestion(request):
                 'hint1':  hint1,
                 'hint2':  hint2,
                 'hint3':  hint3,
+                'ansFormat': question_obj.ansFormat,
             }
             questions.append(question) 
     
