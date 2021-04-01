@@ -6,7 +6,8 @@ from django.contrib.auth.models import User
 class UserInfo(models.Model):
     user_id =  models.ForeignKey(User, null = True, on_delete=models.SET_NULL)
     #user_id = models.IntegerField()
-    name = models.CharField(max_length = 500)
+    name = models.CharField(max_length = 500,default = "")
+    usernm = models.CharField(max_length = 500,default = "")
     level = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
 
@@ -15,8 +16,8 @@ class UserInfo(models.Model):
 
 class EventQuestions(models.Model):
     question_no = models.IntegerField()
-    story =  models.CharField(max_length = 2000)
-    answer = models.CharField(max_length = 500)
+    story =  models.CharField(max_length = 2000,default = "")
+    answer = models.CharField(max_length = 500,default = "")
     hintInfo1 = models.CharField(max_length = 2000,default = "")
     hintInfo2 = models.CharField(max_length = 2000,default = "")
     hintInfo3 = models.CharField(max_length = 2000,default = "")

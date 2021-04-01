@@ -20,9 +20,9 @@ def currentQuestion(request):
     user_id = request.user.id
     user_obj = UserInfo.objects.filter(user_id=request.user)
     name = request.user.first_name +" "+request.user.last_name
-    print(user_obj)
     if len(user_obj)==0:
-        UserInfo.objects.create(user_id=request.user,name=name,level=0,score=0)
+
+        UserInfo.objects.create(user_id=request.user,name=name,usernm=request.user.username, level=0,score=0)
         user_obj = UserInfo.objects.filter(user_id=request.user)
         
     level = user_obj[0].level
@@ -43,6 +43,7 @@ def currentQuestion(request):
         hint1= ""
         hint2= ""
         hint3= ""
+        expTime=0
         if len(hint_obj)!=0:
             hint_obj=hint_obj[0]
           
@@ -52,6 +53,9 @@ def currentQuestion(request):
                 if x>question_obj.expireTime:
                     hint_obj.hint = True
                     hint_obj.save()
+                else:
+                    expTime=question_obj.expireTime-x
+
             hint_obj = HintDetail.objects.filter(user_id=request.user,question_no = question_obj)[0]
             if hint_obj.hint:
                 if hint_obj.hint1:
@@ -69,6 +73,7 @@ def currentQuestion(request):
                     'hint2': hint2,
                     'hint3': hint3,
                     'ansFormat': question_obj.ansFormat,
+                    'expireTime': expTime,
                 }
                 questions.append(question) 
             else:
@@ -80,6 +85,7 @@ def currentQuestion(request):
                     'hint2': hint2,
                     'hint3': hint3,
                     'ansFormat': question_obj.ansFormat,
+                    'expireTime': expTime
                 }
                 questions.append(question) 
         else:
@@ -91,6 +97,7 @@ def currentQuestion(request):
                 'hint2':  hint2,
                 'hint3':  hint3,
                 'ansFormat': question_obj.ansFormat,
+                'expireTime': expTime
             }
             questions.append(question) 
     
@@ -106,4 +113,9 @@ def currentQuestion(request):
 
 @login_required
 def scoreboard(request):
+   
+    context = {
+        'user_info' : request.user.username,
+    }
+    print( request.user.username)
     return render(request,'LeaderBoard.html')

@@ -1079,13 +1079,13 @@
             ansFor.value="";
             ansFor.value=quest.ansFormat;
 
-
+            let expTime = parseInt((quest.expireTime)/60)
 
             let v = document.getElementById('signup1')
             v.innerHTML = ""
             x = quest.qNo.toString()
             if (quest.hintUnlock == 0)
-                v.innerHTML = `<p class="title1">Hint will unlock after 30 minute from the time you clicked on this question</p>`
+                v.innerHTML = `<p class="title1">Hint will unlock after ${expTime} minutes </p>`
             else {
                 if (quest.hint1.length == 0) {
                     let v = document.getElementById('signup1')
