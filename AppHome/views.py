@@ -117,5 +117,5 @@ def scoreboard(request):
     context = {
         'user_info' : request.user.username,
     }
-    print( request.user.username)
-    return render(request,'LeaderBoard.html')
+    
+    return render(request,'LeaderBoard.html',context)
