@@ -24,10 +24,7 @@ def currentQuestion(request):
     if len(user_obj)==0:
         UserInfo.objects.create(user_id=request.user,name=name,level=0,score=0)
         user_obj = UserInfo.objects.filter(user_id=request.user)
-        print("yes")
-    
-    print("hello")
-    print(user_obj)
+        
     level = user_obj[0].level
 
     if level == 0:
@@ -36,21 +33,19 @@ def currentQuestion(request):
         if len(hint_obj0)==0:
           HintDetail.objects.create(user_id = request.user ,question_no = question_obj, hint=False, attempt= False, dtime = time.time())
           
-    print(level)      
+       
     questions = []
     for i in range(level+1):
-        print(i)
-        question_obj = EventQuestions.objects.get(question_no = i)
+         = EventQuestions.objects.get(question_no = i)
         hint_obj = HintDetail.objects.filter(user_id=request.user,question_no = question_obj)
-        print("max pen")
-        print(question_obj.maxScore) 
+        
         
         hint1= ""
         hint2= ""
         hint3= ""
         if len(hint_obj)!=0:
             hint_obj=hint_obj[0]
-            print(hint_obj.qPenalty)
+          
             if hint_obj.hint == False :
                 x =  time.time()-hint_obj.dtime 
                 

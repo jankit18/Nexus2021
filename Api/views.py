@@ -14,19 +14,17 @@ from datetime import datetime
 @api_view(['POST'])
 def checkAnswer(request, question_no):
     now = datetime.now()
-    print("now =", now)
-    # dd/mm/YY H:M:S
+   
     day = now.day
     month =  now.month
     year =  now.year
     hour =  now.hour
     minutes =  now.minute
     second =  now.second
-    print(request.data["answer"])
-
+  
     user_id = request.user.id
     q_obj= EventQuestions.objects.get(question_no=question_no)
-    if day < 2 or day == 30 or day == 31:
+    if (day>=3 and hour>=12)==False:
         if request.data["answer"] == q_obj.answer:
             hint_obj = HintDetail.objects.filter(user_id=request.user,question_no = q_obj)
             print(hint_obj)
@@ -46,8 +44,7 @@ def checkAnswer(request, question_no):
                     hint_obj.hint = True;
             user_obj.score+= q_obj.maxScore
             if hint_obj.hint == True:
-                user_obj.score-= hint_obj.qPenalty
-
+                user_obj.score+= hint_obj.qPenalty
             
             
             hint_obj.attempt=True
@@ -55,8 +52,7 @@ def checkAnswer(request, question_no):
             hint_obj.save()
             x = EventQuestions.objects.all()
             x = len(x)-1
-            print("yesssssss")
-            print(x)
+           
             if question_no < x:
                 q_obj1= EventQuestions.objects.get(question_no=question_no+1)
                 HintDetail.objects.create(user_id = request.user, question_no = q_obj1, hint=False, attempt= False,dtime = time.time())

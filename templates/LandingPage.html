@@ -660,7 +660,7 @@
         background-color: #3a3a3a;
         color: #F1E7FF;
         list-style-type: none;
-        cursor: pointer;
+        
         padding: 10px 10px 10px 10px;
     }
     
@@ -670,27 +670,7 @@
         font-family: 'Poppins', sans-serif;
         font-size: larger;
     }
-    
-    #tab2 {
-        float: right;
-        width: 221px;
-        max-width: 100%;
-        margin: 0;
-        border-top-right-radius: 10px;
-        justify-content: space-around;
-        text-align: center;
-        font-weight: bold;
-        background-color: #3a3a3a;
-        color: white;
-        list-style-type: none;
-        cursor: pointer;
-        padding: 10px;
-    }
-    
-    #tab2.active {
-        color: black;
-        background-color: white;
-    }
+   
     
     #main-holder {
         width: 100%;
@@ -995,23 +975,7 @@
         overlay.classList.remove('active')
     }
 
-    const tabs = document.querySelectorAll('[data-tab-target]')
-    const tabContents = document.querySelectorAll('[data-tab-content]')
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            const target = document.querySelector(tab.dataset.tabTarget)
-            tabContents.forEach(tabContent => {
-                tabContent.classList.remove('active')
-            })
-            tabs.forEach(tab => {
-                tab.classList.remove('active')
-            })
-            tab.classList.add('active')
-            target.classList.add('active')
-        })
-    })
-
+    
 
 
 
@@ -1176,7 +1140,7 @@
                     console.log(data)
                     let v = document.getElementById('ans')
                     if (data == "Failure") {
-                        v.value = "FAILURE"
+                        v.value = "FAILURE! Please Refresh"
                         v.style.background = 'red';
                     }
                     else if (data === 'Success') {
