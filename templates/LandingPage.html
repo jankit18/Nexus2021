@@ -1008,7 +1008,7 @@
             let data = ""
             let csrftoken = getCookie('csrftoken');
 
-            let url1 = "http://127.0.0.1:8000/HintInfo/" + q_no.innerText.toString() + num
+            let url1 = "https://nexus.arhn.co.in/HintInfo/" + q_no.innerText.toString() + num
             console.log(url1)
             fetch(url1, {
                 method: "POST",
@@ -1130,7 +1130,7 @@
             let data = JSON.stringify({ 'answer': val });
             let csrftoken = getCookie('csrftoken');
 
-            let url1 = "http://127.0.0.1:8000/api/" + q_no.innerText.toString()
+            let url1 = "https://nexus.arhn.co.in/api/" + q_no.innerText.toString()
             console.log(url1)
             fetch(url1, {
                 method: "POST",

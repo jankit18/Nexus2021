@@ -26,7 +26,7 @@ SECRET_KEY = '4=a!ir4zy%^2=66x=rs1c#w50t1lxcxx$%a%8j!lh6-n075rpd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -144,7 +144,7 @@ SITE_ID = 1
 
 
 
-LOGIN_REDIRECT_URL="http://127.0.0.1:8000/NEXUS"
+LOGIN_REDIRECT_URL="https://nexus.arhn.co.in/NEXUS"
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
