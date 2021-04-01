@@ -988,8 +988,7 @@
     function start(questions) {
 
         let l = questions.length;
-        console.log("Start")
-        //console.log(l)
+       
 
         let q_no = document.getElementById('qnum')
         let options_class = document.getElementsByClassName('option')
@@ -1009,7 +1008,7 @@
             let csrftoken = getCookie('csrftoken');
 
             let url1 = "https://nexus.arhn.co.in/HintInfo/" + q_no.innerText.toString() + num
-            console.log(url1)
+           
             fetch(url1, {
                 method: "POST",
                 body: data,
@@ -1117,7 +1116,7 @@
                     v.innerHTML += `<p class="title1">Hint3: ${quest.hint3}</p>`
                 }
             }
-            console.log(quest)
+            
             q.innerText = quest.qData
             q_no.innerText = quest.qNo;
         }
@@ -1131,7 +1130,7 @@
             let csrftoken = getCookie('csrftoken');
 
             let url1 = "https://nexus.arhn.co.in/api/" + q_no.innerText.toString()
-            console.log(url1)
+           
             fetch(url1, {
                 method: "POST",
                 body: data,
@@ -1143,7 +1142,7 @@
             })
                 .then((resp) => resp.json())
                 .then(function (data) {
-                    console.log(data)
+                   
                     let v = document.getElementById('ans')
                     if (data == "Failure") {
                         v.value = "FAILURE! Try again"

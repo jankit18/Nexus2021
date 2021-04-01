@@ -108,17 +108,16 @@
         var Table = document.getElementById('tab')
 
         var url='https://nexus.arhn.co.in/api/LeaderboardInfo'
-        console.log(url)
+        
         fetch(url)
         .then((resp) => resp.json())
         .then(function(data){
-            console.log('Data:',data)
-
+           
             var list = data
             list.sort(function(a, b){
               return b.score- a.score;
             });
-            console.log(list)
+            
             index=1
             for(var i in list)
             {
@@ -130,7 +129,7 @@
                       <td>${list[i].usernm}</td>
                       <td>${list[i].score}</td>
                    `
-                console.log(item)
+               
                 Table.innerHTML +=item
                 index+=1;
             }
