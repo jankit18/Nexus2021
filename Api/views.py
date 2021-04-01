@@ -32,9 +32,12 @@ def checkAnswer(request, question_no):
             if hint_obj.attempt ==True:
                 return Response("Already")  
 
+            x = EventQuestions.objects.all()
+            x = len(x)-1
             
             user_obj = UserInfo.objects.get(user_id = request.user)
-            if user_obj.level < 10:
+
+            if user_obj.level < x:
                user_obj.level = user_obj.level+1
 
                
