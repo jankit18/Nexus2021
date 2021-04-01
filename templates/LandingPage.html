@@ -1006,7 +1006,7 @@
             let data = ""
             let csrftoken = getCookie('csrftoken');
 
-            let url1 = "https://nexus.arhn.co.in/HintInfo/" + q_no.innerText.toString() + num
+            let url1 = "https://nexus.arhn.co.in/api/HintInfo/" + q_no.innerText.toString() + num
            
             fetch(url1, {
                 method: "POST",
