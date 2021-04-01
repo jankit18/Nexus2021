@@ -87,10 +87,11 @@
             <div id="signup" data-tab-content class="active">
 
                 <p class="title1"> Instructions:</p>
-                <p class="title1"> 1. There are 10 levels each having 3 hints</p>
+                <p class="title1"> 1. There are 16 levels each having 3 hints</p>
                 <p class="title1"> 2. Solving a level without hint gives 100 points</p>
-                <p class="title1"> 3. Solving a level opening hint 1 gives 80 pt</p>
-                <p class="title1"> 4. Solving the level opening hint 2 and 1 gives 60 pt</p>
+                <p class="title1"> 3. hint 1 cost 10 points</p>
+                <p class="title1"> 4. hint 2 cost 20 points</p>
+                <p class="title1"> 5. hint 3 cost 50 points</p>
 
             </div>
         </div>
@@ -1142,7 +1143,7 @@
             })
                 .then((resp) => resp.json())
                 .then(function (data) {
-                   
+                     
                     let v = document.getElementById('ans')
                     if (data == "Failure") {
                         v.value = "FAILURE! Try again"
