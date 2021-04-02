@@ -929,7 +929,7 @@
     const closeModalButtons = document.querySelectorAll('.close-button')
     const overlay = document.getElementById('overlay')
 
-    openModalButtons.forEach(button => {
+    openModalButtons.forEach(button => { 
         button.addEventListener('click', () => {
             const modal = document.querySelector(button.dataset.modalTarget)
             console.log(modal)
@@ -966,12 +966,6 @@
             closeModal(modal)
             const modal1 = button.closest('.modal1')
             closeModal(modal1)
-            const modal2 = button.closest('.modal1')
-            closeModal(modal2)
-            const modal3 = button.closest('.modal1')
-            closeModal(modal3)
-            const modal4 = button.closest('.modal1')
-            closeModal(modal4)
         })
     })
 
