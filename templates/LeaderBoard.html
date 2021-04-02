@@ -22,7 +22,7 @@
   
 
   <div class="container">
-
+    <p id="att">Refresh Left: {{attempt}}</p>
     <table class="table table-dark table-striped table-hover table-bordered">
       <thead>
         <tr>
@@ -63,7 +63,9 @@
       left: 0;
       top: 0;
   }
-
+  #att{
+    color: white;
+  }
   .a1 {
       text-decoration: none;
       color: #D4E6D4;
@@ -105,14 +107,17 @@
         fetch(url)
         .then((resp) => resp.json())
         .then(function(data){
-           
+            if(data=='Timeout')
+            {
+                window.location.replace("https://nexus.arhn.co.in");
+            }
             var list = data
             list.sort(function(a, b){
               return b.score- a.score;
             });
             
             index=1
-            for(var i in list)
+            for(var i=0;i<list.length;i++)
             {
                 
                 var item =`
@@ -124,7 +129,14 @@
                    `
                
                 Table.innerHTML +=item
-                index+=1;
+                if(i+1<list.length)
+                {
+                  if(list[i].score!=list[i+1].score)
+                  {
+                    index+=1;
+                  }
+                }
+               
             }
 
         })

@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from rest_framework.response import Response
 from django.contrib import messages
 from django.http import HttpResponse
@@ -8,6 +8,8 @@ from django.contrib.auth.decorators import login_required
 import time
 from django.utils.safestring import SafeString
 import json
+from django.contrib.auth import logout
+
 
 # Create your views here.
 
@@ -99,23 +101,50 @@ def currentQuestion(request):
                 'ansFormat': question_obj.ansFormat,
                 'expireTime': expTime
             }
+
             questions.append(question) 
-    
-    
+
+    timeRequest = time.time()
+    if timeRequest-user_obj[0].timeLast>60:
+        user_obj[0].timeLast = timeRequest
+        user_obj[0].numAttempt=0
+        user_obj[0].save()
+    elif user_obj[0].numAttempt>5:
+        user_obj[0].numAttempt = 0
+        user_obj[0].save()
+        logout(request)
+        return redirect('loginHome')   
+
+    user_obj[0].numAttempt+=1
+    user_obj[0].save()
+
     context = {
         'user_info' :user_obj,
         'questions' : SafeString(questions),
-        'score' : user_obj[0].score
+        'score' : user_obj[0].score,
+        'attempt': 6-user_obj[0].numAttempt
     }
-    print(questions)
+   
     return render(request,'LandingPage.html', context)    
 
 
 @login_required
 def scoreboard(request):
-   
+    user_obj = UserInfo.objects.get(user_id = request.user)
+    timeRequest = time.time()
+    if timeRequest-user_obj.timeLast>60:
+      user_obj.timeLast = timeRequest
+      user_obj.numAttempt=0
+      user_obj.save()
+    elif user_obj.numAttempt>5:
+        user_obj.numAttempt = 0
+        user_obj.save()
+        logout(request)
+        return redirect('loginHome')  
+        
     context = {
         'user_info' : request.user.username,
+        'attempt': 6-user_obj.numAttempt-1
     }
     
     return render(request,'LeaderBoard.html',context)

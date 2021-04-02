@@ -10,6 +10,8 @@ class UserInfo(models.Model):
     usernm = models.CharField(max_length = 500,default = "")
     level = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
+    timeLast = models.IntegerField(default=0)
+    numAttempt = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name+" "+str(self.user_id)

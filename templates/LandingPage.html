@@ -40,17 +40,20 @@
 
                 <p id="textq">
                 </p>
+                <p id="amtlft">Attempt Left: {{attempt}}</p>
 
             </div>
             <div id="subin">
 
                 <input type='text'  id="ans" class="inp"></input>
                 <button id="answer">SUBMIT</button>
+                
             </div>
 
             <!-- <div class="np" id="submit">
                     <p>SUBMIT</p>
                 </div> -->
+                
 
         </div>
     </div>
@@ -58,7 +61,6 @@
     <div class="modal" id="modal">
         <div class="modal-header">
             <div class="title">Created by Team Aavishkar ; )</div>
-
             <button data-close-button class="close-button">&times</button>
         </div>
 
@@ -91,6 +93,7 @@
                 <p class="title1"> 3. hint 1 cost 10 points</p>
                 <p class="title1"> 4. hint 2 cost 20 points</p>
                 <p class="title1"> 5. hint 3 cost 50 points</p>
+                <p class="title1"> 6. Hitting server atmost 5 times per minute is allowed or else you will be logged out</p>
             </div>
         </div>
     </div>
@@ -114,11 +117,22 @@
                 })
                     .then((resp) => resp.json())
                     .then(function (data) {
-                        x = "hint" + num
-                        let v1 = document.getElementById(x)
-                        v1.innerText = x + " UNLOCKED"
-                        let v = document.getElementById('signup1')
-                        v.innerHTML += `<p class="title1">Hint${num}: ${data}</p>`
+                        if(data=='Timeout')
+                        {
+                            window.location.replace("https://nexus.arhn.co.in");
+                        }
+                        let attmpt = document.getElementById('amtlft')
+                        attmpt.innerText = "Attempt Left: "+ data['attemptl'].toString()
+                        if(data['hint'].length!=0)
+                        {
+                            x = "hint" + num
+                            let v1 = document.getElementById(x)
+                            v1.innerText = x + " UNLOCKED"
+                            let v = document.getElementById('signup1')
+                            v.innerHTML += `<p class="title1">Hint${num}: ${data['hint']}</p>`
+                            let attmpt = document.getElementById('amtlft')
+                            attmpt.innerText = "Attempt Left: "+ data['attemptl'].toString()
+                        }
                     })
             }
             function getCookie(name) {
@@ -237,6 +251,7 @@
         color: #D4E6D4;
         cursor: pointer;
     }
+    
     #instruct {
         height: 50px;
         margin: 10px 0px 10px 15px;
@@ -915,7 +930,6 @@
     const overlay = document.getElementById('overlay')
 
     openModalButtons.forEach(button => {
-        console.log("entered")
         button.addEventListener('click', () => {
             const modal = document.querySelector(button.dataset.modalTarget)
             console.log(modal)
@@ -978,7 +992,7 @@
 
 
     let Eventquestions = {{ questions }}
-    console.log(Eventquestions)
+   
     start(Eventquestions)
 
 
@@ -1018,11 +1032,23 @@
             })
                 .then((resp) => resp.json())
                 .then(function (data) {
-                    x = "hint" + num
-                    let v1 = document.getElementById(x)
-                    v1.innerText = x + " UNLOCKED"
-                    let v = document.getElementById('signup1')
-                    v.innerHTML += `<p>Hint${num}: data</p>`
+                    if(data=='Timeout')
+                    {
+                        window.location.replace("https://nexus.arhn.co.in");
+                    }
+                    let attmpt = document.getElementById('amtlft')
+                    attmpt.innerText = "Attempt Left: "+ data['attemptl'].toString()
+                    console.log(data['hint'])
+                    if(data['hint'].length!=0)
+                    {
+                        x = "hint" + num
+                        let v1 = document.getElementById(x)
+                        v1.innerText = x + " UNLOCKED"
+                        let v = document.getElementById('signup1')
+                        v.innerHTML += `<p class="title1">Hint${num}: ${data['hint']}</p>`
+                        let attmpt = document.getElementById('amtlft')
+                        attmpt.innerText = "Attempt Left: "+ data['attemptl'].toString()
+                    }
                 })
         }
 
@@ -1140,27 +1166,36 @@
             })
                 .then((resp) => resp.json())
                 .then(function (data) {
-                     
+                    let k =data;
                     let v = document.getElementById('ans')
-                    if (data == "Failure") {
+                    let attmpt = document.getElementById('amtlft')
+                    if(data=='Timeout')
+                    {
+                        window.location.replace("https://nexus.arhn.co.in");
+                    }
+                    else if (data["status"] == "Failure") {
                         v.value = "FAILURE! Try again"
                         v.style.background = 'red';
+                        attmpt.innerText = "Attempt Left: "+ data['attemptl'].toString()
                     }
-                    else if (data === 'Success') {
+                    else if (data["status"] === 'Success') {
                         v.value = "SUCCESS! Please Refresh"
                         v.style.background = 'green';
+                        attmpt.innerText = "Attempt Left: "+ data['attemptl'].toString()
                     }
-                    else if (data == 'Already') {
+                    else if (data["status"] == 'Already') {
                         v.value = "ALREADY ATTEMPTED"
                         v.style.background = 'green';
+                        attmpt.innerText = "Attempt Left: "+ data['attemptl'].toString()
                     }
-                    else if (data == "Over") {
+                    else if (data["status"] == "Over") {
                         v.value = "EVENT OVER"
                         v.style.background = 'blue';
                     }
                     else {
                         v.value = "NEXUS CAPTURED!!"
                         v.style.background = 'blue';
+                        attmpt.innerText = "Attempt Left: "+ data['attemptl'].toString()
                     }
 
                 })
