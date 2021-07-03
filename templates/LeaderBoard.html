@@ -102,14 +102,14 @@
     function buildLeaderBoard(){
         var Table = document.getElementById('tab')
 
-        var url='https://nexus.arhn.co.in/api/LeaderboardInfo'
+        var url='https://nexus-ankit.herokuapp.com/api/LeaderboardInfo'
         
         fetch(url)
         .then((resp) => resp.json())
         .then(function(data){
             if(data=='Timeout')
             {
-                window.location.replace("https://nexus.arhn.co.in");
+                window.location.replace("https://nexus-ankit.herokuapp.com/");
             }
             var list = data
             list.sort(function(a, b){

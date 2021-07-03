@@ -26,7 +26,7 @@ SECRET_KEY = '4=a!ir4zy%^2=66x=rs1c#w50t1lxcxx$%a%8j!lh6-n075rpd'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['nexus-ankit.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -144,7 +145,7 @@ SITE_ID = 1
 
 
 
-LOGIN_REDIRECT_URL="https://nexus.arhn.co.in/NEXUS"
+LOGIN_REDIRECT_URL="https://nexus-ankit.herokuapp.com/NEXUS"
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {

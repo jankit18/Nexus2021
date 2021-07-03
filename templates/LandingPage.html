@@ -104,7 +104,7 @@
                 let data = ""
                 let csrftoken = getCookie('csrftoken');
 
-                let url1 = "https://nexus.arhn.co.in/api/HintInfo/" + q_no + "/" + num;
+                let url1 = "https://nexus-ankit.herokuapp.com/api/HintInfo/" + q_no + "/" + num;
                 console.log(url1)
                 fetch(url1, {
                     method: "POST",
@@ -119,7 +119,7 @@
                     .then(function (data) {
                         if(data=='Timeout')
                         {
-                            window.location.replace("https://nexus.arhn.co.in");
+                            window.location.replace("https://nexus-ankit.herokuapp.com/");
                         }
                         let attmpt = document.getElementById('amtlft')
                         attmpt.innerText = "Attempt Left: "+ data['attemptl'].toString()
@@ -1013,7 +1013,7 @@
             let data = ""
             let csrftoken = getCookie('csrftoken');
 
-            let url1 = "https://nexus.arhn.co.in/api/HintInfo/" + q_no.innerText.toString() + num
+            let url1 = "https://nexus-ankit.herokuapp.com/api/HintInfo/" + q_no.innerText.toString() + num
            
             fetch(url1, {
                 method: "POST",
@@ -1028,7 +1028,7 @@
                 .then(function (data) {
                     if(data=='Timeout')
                     {
-                        window.location.replace("https://nexus.arhn.co.in");
+                        window.location.replace("https://nexus-ankit.herokuapp.com/");
                     }
                     let attmpt = document.getElementById('amtlft')
                     attmpt.innerText = "Attempt Left: "+ data['attemptl'].toString()
@@ -1097,12 +1097,13 @@
             ansFor.value=quest.ansFormat;
 
             let expTime = parseInt((quest.expireTime)/60)
+            let expTimeSec = parseInt((quest.expireTime)%60)
 
             let v = document.getElementById('signup1')
             v.innerHTML = ""
             x = quest.qNo.toString()
             if (quest.hintUnlock == 0)
-                v.innerHTML = `<p class="title1">Hint will unlock after ${expTime} minutes </p>`
+                v.innerHTML = `<p class="title1">Hint will unlock after ${expTime} minutes ${expTimeSec} seconds</p>`
             else {
                 if (quest.hint1.length == 0) {
                     let v = document.getElementById('signup1')
@@ -1147,7 +1148,7 @@
             let data = JSON.stringify({ 'answer': val });
             let csrftoken = getCookie('csrftoken');
 
-            let url1 = "https://nexus.arhn.co.in/api/" + q_no.innerText.toString()
+            let url1 = "https://nexus-ankit.herokuapp.com/api/" + q_no.innerText.toString()
            
             fetch(url1, {
                 method: "POST",
@@ -1165,7 +1166,7 @@
                     let attmpt = document.getElementById('amtlft')
                     if(data=='Timeout')
                     {
-                        window.location.replace("https://nexus.arhn.co.in");
+                        window.location.replace("https://nexus-ankit.herokuapp.com/");
                     }
                     else if (data["status"] == "Failure") {
                         v.value = "FAILURE! Try again"
