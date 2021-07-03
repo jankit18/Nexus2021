@@ -5,4 +5,4 @@ from AppHome.models import UserInfo
 class UserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserInfo
-        fields = ['name','score']
+        fields = ['name','usernm','score']

@@ -11,26 +11,23 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
     crossorigin="anonymous"></script>
-
-
-
-
 </head>
 
 <body>
  <div id="yes">
   <nav>
-    <a href="#" class="a1">NEXUS</a>
+    <a href="#" class="a1">Hi,{{user_info}}</a>
     <a href="{% url 'currentQuestion' %}" class="a2">HOME</a>
   </nav>
   
 
   <div class="container">
-
+    <p id="att">Refresh Left: {{attempt}}</p>
     <table class="table table-dark table-striped table-hover table-bordered">
       <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col">PLAYER-NAME</th>
           <th scope="col">USERNAME</th>
           <th scope="col">SCORE</th>
         </tr>
@@ -66,7 +63,9 @@
       left: 0;
       top: 0;
   }
-
+  #att{
+    color: white;
+  }
   .a1 {
       text-decoration: none;
       color: #D4E6D4;
@@ -82,11 +81,8 @@
 
 
   .container {
-      
-      margin-top: 260px;
-      align-items: center;
-     
-      
+      margin-top: 140px;
+      align-items: center; 
   }
 
   .title {
@@ -106,31 +102,41 @@
     function buildLeaderBoard(){
         var Table = document.getElementById('tab')
 
-        var url='http://127.0.0.1:8000/api/LeaderboardInfo'
-        console.log(url)
+        var url='https://nexus.arhn.co.in/api/LeaderboardInfo'
+        
         fetch(url)
         .then((resp) => resp.json())
         .then(function(data){
-            console.log('Data:',data)
-
+            if(data=='Timeout')
+            {
+                window.location.replace("https://nexus.arhn.co.in");
+            }
             var list = data
             list.sort(function(a, b){
               return b.score- a.score;
             });
-            console.log(list)
+            
             index=1
-            for(var i in list)
+            for(var i=0;i<list.length;i++)
             {
                 
                 var item =`
                      <tr>
                       <th scope="row">${index}</th>
                       <td>${list[i].name}</td>
+                      <td>${list[i].usernm}</td>
                       <td>${list[i].score}</td>
                    `
-                console.log(item)
+               
                 Table.innerHTML +=item
-                index+=1;
+                if(i+1<list.length)
+                {
+                  if(list[i].score!=list[i+1].score)
+                  {
+                    index+=1;
+                  }
+                }
+               
             }
 
         })
